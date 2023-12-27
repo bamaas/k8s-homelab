@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: alertmanager-gotify-bridge
+  name: alertmanager-gotify-bridge
+  namespace: gotify
+spec:
+  ports:
+  - name: 8080-8080
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: alertmanager-gotify-bridge
+  type: ClusterIP

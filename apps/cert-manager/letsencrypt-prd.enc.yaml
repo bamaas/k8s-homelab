@@ -1,0 +1,34 @@
+apiVersion: ENC[AES256_GCM,data:ITRI+urZfxtWxYE3pJlZL3Jy,iv:lCC5rsUgbcGFO6sHbjVaSf4cnmjgtYSHk5L4sAyza3k=,tag:66wlu5+l5rEJfrLyQzyp5w==,type:str]
+kind: ENC[AES256_GCM,data:LxjQ6DOAXjvgUKMvpw==,iv:IN7WrA6UKr/SQZQOTk/o9UV895ziSP1fl6xQdQX9HvY=,tag:D8O1A6Qg+P1RHBDR13D2QQ==,type:str]
+metadata:
+    name: ENC[AES256_GCM,data:eRVYbg4h8q8U7uy2LVpS,iv:gdsmDfdthyYig6DeEcghZd1qCA2PUnVWwxksolJ4GNY=,tag:PwWyGQQ4nc53vVjRqwF7uw==,type:str]
+    namespace: ENC[AES256_GCM,data:scCCtp5a1ickn0DP,iv:LxkBil8wgJHFf8kmHnVHgezA1C0SjVYr/NUALOg31uY=,tag:prI2EnaxiYPFazGs7D7Bqw==,type:str]
+spec:
+    acme:
+        server: ENC[AES256_GCM,data:d1nWyoJYni8SvzkM/DczFlaeJk1HltShaZ7eNqHlEtYXIps8jyomr80A6R2F5Q==,iv:K+Wno5BKR4nRKOf7ET92Q7xYdSeT4rBP00nhPcq9kBA=,tag:7f1xfdCpPxB1ogdHtsJ4dQ==,type:str]
+        email: ENC[AES256_GCM,data:/Lfaszk40EChBExBWw==,iv:a50Ut6gre3bWTIGWST1HXRNA5f7rmiM1O09katnNLks=,tag:UfNnHLjhSMLbMWW/rlI6rw==,type:str]
+        privateKeySecretRef:
+            name: ENC[AES256_GCM,data:BScIG3OK0QVOy675eUWv,iv:DqE148N74VQZrRnl6KH8hQ0+k0Us5XtZIp2lKH8Kkb8=,tag:t3/1ndro0GyxdYR3SQt3wQ==,type:str]
+        solvers:
+            - dns01:
+                cloudflare:
+                    email: ENC[AES256_GCM,data:n73bTulKBnQsuBiwkQ==,iv:4dW7NYvhL/kpYE0ND4cljHosMBOcfC9C/rWLeO/K6bw=,tag:cMdrOvUQUKOVFjk7KExtug==,type:str]
+                    apiTokenSecretRef:
+                        name: ENC[AES256_GCM,data:yGDx52P7yQiU511OMbNG3xpnsX8=,iv:ExU2QRNGj8pRBfdpqt8W+ifvQyf2QSJHBINevRuP8cg=,tag:ZRNzpDj/+sxJ0x8LM299tw==,type:str]
+                        key: ENC[AES256_GCM,data:8pzs9ErarYhx,iv:qLqfcbqzsYaRnW1VwJDiKxmLKj8AbBS17F32wAIGWd0=,tag:3gHK1yZzdeqPkUcW92aqcA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv:
+        - vault_url: https://sops-3caeb0533c5a473f.vault.azure.net
+          name: sops-key
+          version: b2031a08aea14a50ab6d8e72548eb4f9
+          created_at: "2023-12-15T13:07:52Z"
+          enc: qLkC9aoXYE8W3CPnccz--I46Nvk3NDEp5gK2mjD9c1xrwwvHx8-9KhD-5bcm7saGbwsqdyaPvO9RAI1iF5z5jjZ47cSb__cJICgtD6uFwHTRT8gfAEuDNh3OqLZMRkZ_MMPDb6lIyX-7v10J470gA7z-rB3dEsST4jAPLaQOhT8MEjbu5Csn1y7IUCfSD1CuwMwcbrVobNweEDCCpKvjuuT9uuS3AKBGaXOiYowdx_8BWjVdGOqSumR-5JoLEY3SxRaZuJ0wPloS0cnd-ESeCA-OiEQFdXpf6pQ6jEXOQ_dhvmSlIQXPmOCUcUz4VsJWh9S-ojOB1an6l1aiUTJoEw
+    hc_vault: []
+    age: []
+    lastmodified: "2023-12-15T13:07:53Z"
+    mac: ENC[AES256_GCM,data:ieKOl2uIfYPeF5/tR5GTViiE7XPUsgBjVjAlaPrzfz6znO7BqyeGarhCQ8PNLuxHqXXYvn+VkclOVa51QraqkZ57/+DM20eqWVOi73AnUm2TJVt1aEI0NdiiGc/HO6FVMuvWLvP2FBX6cSIWuqcr0P5zt1vEME+OcHgodNdT5eo=,iv:MKg1UhNVplNHLy1Ni5fuQNYVLcycLsOlodvbQE3SzEQ=,tag:dBtzN8cw5W4wGnyUee3roQ==,type:str]
+    pgp: []
+    unencrypted_suffix: _unencrypted
+    version: 3.7.3

@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+helm repo add drone https://charts.drone.io
+helm repo update drone
+helm upgrade drone drone/drone --version 0.6.3 --wait --install --namespace drone --create-namespace -f ${dir}/values.yaml -f ${dir}/secret.values.enc.yaml

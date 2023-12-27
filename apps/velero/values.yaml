@@ -1,0 +1,38 @@
+metrics:
+  enabled: false
+
+configuration:
+  provider: aws
+  backupStorageLocation:
+    provider: aws
+    bucket: velero
+    default: true
+    config:
+      s3ForcePathStyle: true
+      s3Url: http://minio.minio.svc.cluster.local:9000
+      # s3Url: https://s3.kubernetes.lan.basmaas.nl
+      region: minio
+  volumeSnapshotLocation:
+    name: default
+    provider: aws
+    config:
+      region: minio
+  defaultVolumesToRestic: true
+
+initContainers:
+  - name: velero-plugin-for-aws
+    image: velero/velero-plugin-for-aws:v1.3.0
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+      - mountPath: /target
+        name: plugins
+
+deployRestic: true
+restic:
+  resources:    
+    requests:
+      cpu: 100m
+      memory: 100Mi
+    limits:
+      cpu: 1000m
+      memory: 1024Mi

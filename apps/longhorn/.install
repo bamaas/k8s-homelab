@@ -1,0 +1,18 @@
+#!/bin/bash
+set -e
+# Dynamic vars
+dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+# Static vars
+namespace=longhorn-system
+ui_username=$(sops --decrypt ${dir}/ui-credentials.enc.yaml | jq -r '.username')
+ui_password=$(sops --decrypt ${dir}/ui-credentials.enc.yaml | jq -r '.password')
+chart_version=1.4.0
+# Install chart
+helm repo add longhorn https://charts.longhorn.io
+helm repo update longhorn
+helm upgrade --install longhorn longhorn/longhorn --wait --version ${chart_version} --namespace ${namespace} --create-namespace -f ${dir}/values.yaml
+# Create basic auth secret
+/bin/bash ${dir}/create-basic-auth-secret.sh ${ui_username} ${ui_password} ${dir}/basic-auth.yaml
+kubectl -n ${namespace} apply -f ${dir}/basic-auth.yaml
+# Apply all other manifests
+find ${dir}/ -type f -name '*.yaml' ! -name 'values.yaml' -exec kubectl apply -f '{}' \;

@@ -1,0 +1,16 @@
+- name: Deploy RKE2
+  hosts:
+    - masters
+    - workers
+  become: yes
+  vars_files:
+    - vars.enc.yaml.tmp
+  roles:
+     - role: lablabs.rke2
+     
+# Custom tasks
+  tasks:
+    - name: set crictl
+      shell: |
+        ln -s /var/lib/rancher/rke2/bin/crictl /usr/bin/crictl
+        crictl config --set runtime-endpoint=unix:///run/k3s/containerd/containerd.sock --set image-endpoint=unix:///run/k3s/containerd/containerd.sock

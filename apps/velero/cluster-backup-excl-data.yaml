@@ -1,0 +1,15 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: cluster-backup-excl-data
+  namespace: velero
+spec:
+  schedule: 0 3 * * *
+  template:
+    defaultVolumesToRestic: false
+    hooks: {}
+    includedNamespaces:
+    - '*'
+    metadata: {}
+    ttl: 480h0m0s
+  useOwnerReferencesInBackup: false

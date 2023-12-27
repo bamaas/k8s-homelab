@@ -1,0 +1,7 @@
+#!/bin/bash
+set -e
+dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+helm repo add gitea-charts https://dl.gitea.io/charts/
+helm repo update gitea-charts
+helm upgrade gitea gitea-charts/gitea --version 5.0.1 --install --wait --namespace gitea --create-namespace -f ${dir}/values.yaml -f ${dir}/secret.values.enc.yaml
+find ${dir}/ -type f -name '*.yaml' ! -name 'values.yaml' -exec kubectl apply -f '{}' \;

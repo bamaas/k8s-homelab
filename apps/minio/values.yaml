@@ -1,0 +1,42 @@
+replicas: 1
+
+mode: gateway
+
+gateway:
+  replicas: 1
+
+resources:
+  requests:
+    memory: 250Mi
+
+buckets:
+  - name: velero
+    policy: none
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prd
+    nginx.ingress.kubernetes.io/proxy-body-size: 128m
+    # internal kubernetes pod ip range
+    nginx.ingress.kubernetes.io/whitelist-source-range: 10.42.0.0/0
+  hosts:
+    - s3.kubernetes.lan.basmaas.nl
+  tls:
+   - secretName: s3.kubernetes.lan.basmaas.nl
+     hosts:
+       - s3.kubernetes.lan.basmaas.nl
+
+consoleIngress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prd
+    nginx.ingress.kubernetes.io/proxy-body-size: 128m
+  hosts:
+    - minio.kubernetes.lan.basmaas.nl
+  tls:
+   - secretName: minio.kubernetes.lan.basmaas.nl
+     hosts:
+       - minio.kubernetes.lan.basmaas.nl

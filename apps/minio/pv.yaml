@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    pv.kubernetes.io/provisioned-by: cluster.local/nfs-subdir-external-provisioner
+  name: pvc-53182d4e-416c-40ed-8cd4-f60171500d36
+spec:
+  accessModes:
+  - ReadWriteMany
+  capacity:
+    storage: 1Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: minio
+    namespace: minio
+  nfs:
+    path: /volume7/nfs-subdir-external-provisioner/minio-minio-pvc-e8f98860-ed87-4c2b-a655-3499cafba550
+    server: nas.lan
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: nfs
+  volumeMode: Filesystem

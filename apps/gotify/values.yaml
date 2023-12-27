@@ -1,0 +1,22 @@
+persistence:
+  data:
+    enabled: true
+    size: 250Mi
+    accessMode: ReadWriteOnce
+
+ingress:
+  main:
+    enabled: true
+    primary: true
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prd
+    ingressClassName: nginx
+    hosts:
+        - host: gotify.kubernetes.lan.basmaas.nl
+          paths:
+            - path: /
+              pathType: Prefix
+    tls:
+     - secretName: gotify.kubernetes.lan.basmaas.nl
+       hosts:
+         - gotify.kubernetes.lan.basmaas.nl

@@ -1,0 +1,91 @@
+# Create ServiceAccount gitea-backup
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: gitea-backup
+  namespace: gitea
+---
+# The role should have permissions to run kubectl exec into the gitea pod.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: gitea
+  name: backup-operator
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods"]
+  verbs: ["get", "watch", "list"]
+- apiGroups: [""]
+  resources: ["pods/exec"]
+  verbs: ["create"]
+---
+# RoleBinding definition
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: backup
+  namespace: gitea
+subjects:
+- kind: ServiceAccount
+  name: gitea-backup
+  namespace: gitea
+roleRef:
+  kind: Role 
+  name: backup-operator
+  apiGroup: rbac.authorization.k8s.io
+---
+### pvc that is mounted in the cronjob
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gitea-dumps
+  namespace: gitea
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 500Mi
+---
+## Cronjob for backup
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: gitea-backup
+  namespace: gitea
+spec:
+  concurrencyPolicy: Forbid
+  schedule: "5 5 * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          annotations:
+            backup.velero.io/backup-volumes-excludes: gitea-dumps
+            velero.io/exclude-from-backup: "true"
+        spec:
+          serviceAccountName: gitea-backup
+          containers:
+          - name: gitea-backup
+            image: bitnami/kubectl:1.20
+            imagePullPolicy: IfNotPresent
+            command:
+              - bin/bash
+              - -c
+              - |
+                kubectl exec gitea-0 -n gitea -- /bin/bash -c 'cd /tmp && rm -rf /tmp/gitea-dump* && /usr/local/bin/gitea dump'
+                kubectl cp gitea/gitea-0:/tmp /mnt
+                rm -rf /mnt/gitea
+                export retention=100
+                ls -1tr -I@eaDir | head -n -${retention} | xargs -d '\n' rm -f --
+            volumeMounts:
+            - name: gitea-dumps
+              mountPath: /mnt
+          restartPolicy: Never
+          volumes:
+          - name: gitea-dumps
+            persistentVolumeClaim:
+              claimName: gitea-dumps

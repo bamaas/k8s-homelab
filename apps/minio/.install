@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+kubectl create namespace minio --dry-run=client -o yaml | kubectl apply -f -
+kubectl apply -f ${dir}/pv.yaml
+kubectl apply -f ${dir}/pvc.yaml
+helm repo add minio https://charts.min.io/
+helm repo update minio
+helm upgrade --install minio minio/minio --wait --create-namespace --version 3.4.6 --namespace minio --create-namespace -f ${dir}/values.yaml -f ${dir}/secret.values.enc.yaml

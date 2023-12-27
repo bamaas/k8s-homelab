@@ -1,0 +1,36 @@
+- name: Host DNS
+  hosts:
+    - masters
+    - workers
+  become: yes
+  vars_files:
+    - vars.enc.yaml.tmp
+  gather_facts: true
+  tasks:
+
+    - name: Template a file to /etc/netplan/00-installer-config.yaml
+      template:
+        src: 00-installer-config.yaml.j2
+        dest: /etc/netplan/00-installer-config.yaml
+        owner: root
+        group: root
+        mode: '0644'
+      when: ansible_facts['distribution']=="Ubuntu"
+
+    - name: Apply netplan
+      command: sudo netplan apply
+      async: 45
+      poll: 0
+      when: ansible_facts['distribution']=="Ubuntu"
+
+    - name: Validate gateway is set
+      shell: "ip route show | grep default  | grep {{ default_gateway }}"
+      when: ansible_facts['distribution']=="Ubuntu"
+
+    - name: Validate DNS servers are set
+      shell: |
+        resolvectl | grep "Current DNS Server" | grep "{{ primary_dns_server }}"
+      when: ansible_facts['distribution']=="Ubuntu"
+
+    - name: Validate hostname can be resolved
+      shell: nslookup nas.lan

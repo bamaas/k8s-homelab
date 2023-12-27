@@ -1,0 +1,19 @@
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prd
+    nginx.ingress.kubernetes.io/whitelist-source-range: 10.42.0.0/0
+  hosts:
+    - host: drone.kubernetes.lan.basmaas.nl
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+   - secretName: drone.kubernetes.lan.basmaas.nl
+     hosts:
+       - drone.kubernetes.lan.basmaas.nl
+
+persistentVolume:
+  size: 2Gi

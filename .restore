@@ -1,0 +1,54 @@
+#!/bin/bash
+
+restore(){
+    local namespace=${1}
+
+    latest_backup_incl_data=$(velero backup get | grep cluster-backup-incl-data | grep "Completed" | head -n 1 | awk '{print $1}')
+    if [ -z "${latest_backup_incl_data}" ]; then
+        echo "ERROR: No recent backup including data found." >&2
+        exit 1
+    fi
+
+    velero restore create ${namespace} --from-backup ${latest_backup_incl_data} --wait --exclude-resources endpointslices.discovery.k8s.io --include-namespaces ${namespace}
+
+    status=$(velero restore get ${namespace} --output json | jq -r .status.phase)
+    if [ "${status}" !=  "Completed" ]; then
+        echo "ERROR: Restore did not run successfully." >&2
+        exit 1
+    fi
+
+    echo "Waiting for all pods in namespace ${namespace} to be ready..."
+    kubectl -n ${namespace} wait pods -l velero.io/restore-name=${namespace} --for condition=Ready --timeout=90s
+
+    echo "Deleting velero restore..."
+    velero restore delete ${namespace} --confirm
+}
+
+############################################
+# Main
+############################################
+set -e
+if [ ! $# -eq 3 ]
+then
+    echo "ERROR: missing arguments."
+    echo "Expected arguments: user, ip and the namespace to restore."
+    echo "Actual arguments: ${@}"
+    exit 1
+fi
+user=$1
+manager_ip=$2
+namespace=$3
+
+cwd=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+basename=$(basename ${cwd})
+set +e
+command -v ip &> /dev/null
+ip_cmd_available=$?
+set -e
+if [ ${ip_cmd_available} -eq 0 ]
+then
+    my_ip=$(ip a | grep ${manager_ip} | awk '{print $2}' | sed 's/.\{3\}$//')
+    [ ${my_ip} = ${manager_ip} ] && restore ${namespace}
+else
+    typeset -f restore | ssh ${user}@${manager_ip} "$(cat); restore ${namespace}"
+fi

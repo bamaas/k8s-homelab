@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+find ${dir}/  -type f -name '*.enc.yaml' ! -name '*.dec.yaml' -exec bash -c 'sops --decrypt "{}" | kubectl -n kube-system apply -f -' \;

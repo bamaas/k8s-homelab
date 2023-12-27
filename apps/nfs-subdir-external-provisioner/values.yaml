@@ -1,0 +1,9 @@
+nfs:
+  server: nas.lan
+  path: /volume7/nfs-subdir-external-provisioner
+
+storageClass:
+  name: nfs
+
+podAnnotations:
+  - backup.velero.io/backup-volumes-excludes: nfs-subdir-external-provisioner-root

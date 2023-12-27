@@ -1,0 +1,33 @@
+#!/bin/bash
+
+backup(){
+    velero backup create --from-schedule cluster-backup-incl-data --wait
+}
+
+############################################
+# Main
+############################################
+set -e
+if [ ! $# -eq 2 ]
+then
+    echo "ERROR: missing arguments."
+    echo "Expected arguments: user and ip."
+    echo "Actual arguments: ${@}"
+    exit 1
+fi
+user=$1
+manager_ip=$2
+
+cwd=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+basename=$(basename ${cwd})
+set +e
+command -v ip &> /dev/null
+ip_cmd_available=$?
+set -e
+if [ ${ip_cmd_available} -eq 0 ]
+then
+    my_ip=$(ip a | grep ${manager_ip} | awk '{print $2}' | sed 's/.\{3\}$//')
+    [ ${my_ip} = ${manager_ip} ] && backup
+else
+    typeset -f backup | ssh ${user}@${manager_ip} "$(cat); backup"
+fi

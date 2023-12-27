@@ -1,0 +1,34 @@
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prd
+    nginx.ingress.kubernetes.io/proxy-body-size: 100m
+    nginx.ingress.kubernetes.io/whitelist-source-range: 10.42.0.0/0
+  hosts:
+    - host: gitea.kubernetes.lan.basmaas.nl
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+   - secretName: gitea.kubernetes.lan.basmaas.nl
+     hosts:
+       - gitea.kubernetes.lan.basmaas.nl
+
+persistence:
+  enabled: true
+  size: 1Gi
+  storageClass: longhorn
+
+gitea:
+  config:
+    APP_NAME: Git
+    server:
+      ROOT_URL: 'https://gitea.kubernetes.lan.basmaas.nl'
+      LANDING_PAGE: explore
+    ui:
+      DEFAULT_THEME: earl-grey
+      THEMES: earl-grey
+    service:
+      DISABLE_REGISTRATION: true
+

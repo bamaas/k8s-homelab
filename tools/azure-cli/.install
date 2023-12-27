@@ -1,0 +1,11 @@
+#!/bin/bash
+command -v az &> /dev/null && exit 0
+
+apt update -y
+apt install pipx -y 
+pipx ensurepath
+apt install python3.8-venv -y
+export PIPX_HOME=/opt/pipx 
+export PIPX_BIN_DIR=/usr/local/bin
+pipx install azure-cli
+echo "Now be sure to login to Azure with 'az login' command"

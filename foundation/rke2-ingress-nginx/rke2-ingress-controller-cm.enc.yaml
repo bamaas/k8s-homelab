@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: rke2-ingress-nginx-controller
+    namespace: kube-system
+data:
+    whitelist-source-range: ENC[AES256_GCM,data:bhbgLl+9zdx0YA/OUBWL9z2mb21dmJ/xXNYE,iv:XzgEVx46tsuQCgx0RRvfbLRTdoIJdk4rTlMKAbcXg4E=,tag:bByYd0vostLZrkDHWuMPcA==,type:str]
+    proxy-body-size: 20m
+    log-format-upstream: $remote_addr - $request_id - [$proxy_add_x_forwarded_for] - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $request_length $request_time [$proxy_upstream_name] $upstream_addr $upstream_response_length $upstream_response_time $upstream_status
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv:
+        - vault_url: https://sops-3caeb0533c5a473f.vault.azure.net
+          name: sops-key
+          version: b2031a08aea14a50ab6d8e72548eb4f9
+          created_at: "2023-12-16T11:58:09Z"
+          enc: hpIw1LoxhYf1it_fMvsb1NHVON_UK9V3Cv6TjexDDaKxtzY_04GGCcu2niUh2GqpVJDEvJvzkKW4NdfwE6DRIDlu_4PmUC9Sw1LNbvgM6tPmpRtmmiE_LeLj57MDyR69LrWSPk99m82UqZkEoCmKu6-nEr4frbaW920JS6BRwhiH9eGZSfr_spK3v5ebe_ZngkABUgV3l0KlPvtZBelwWEOQ7XEHON9QEg2RTGm_ZMFQ-gDXa6GtjpfCcBJWe2cJcvFJDoFrhegV__xg9YmSkEHGVORepQXmQ_d6VtCHy58ZoN3ucTOgZ-1GDcRlYjlVohhGXTKgnvJpDoZ_Km5GSg
+    hc_vault: []
+    age: []
+    lastmodified: "2023-12-16T11:58:11Z"
+    mac: ENC[AES256_GCM,data:Ul20nf5Jrh9ZDaAnK8mwmuBXYrnDFY6R6dkSEi+9j9w0HSLz9alSwN8xLo6UsFsyx2jHHOkWuV+5px6Q2Vf3ib50RP9O8WZE88qf0vxLltAg8KrAKYdGgKK+r3gkBYgHT4KfgBdWWWamq0bfUlcBpZ2HMqOt2VRm0itvQBl4tOs=,iv:LwNHBRMm7cXlERDhGAyW3o6pnydq6iqewhge8etose4=,tag:bcSa+sWp6LAeSosS4jo2wA==,type:str]
+    pgp: []
+    encrypted_regex: ^(whitelist-source-range)$
+    version: 3.7.3

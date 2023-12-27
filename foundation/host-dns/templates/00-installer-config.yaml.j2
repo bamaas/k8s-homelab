@@ -1,0 +1,12 @@
+network:
+  ethernets:
+    ens18:
+      addresses:
+      - "{{ ansible_default_ipv4['address'] }}/24"
+      routes:
+      - to: default
+        via: {{ default_gateway }}
+      nameservers:
+        addresses:
+        - {{ primary_dns_server }}
+  version: 2

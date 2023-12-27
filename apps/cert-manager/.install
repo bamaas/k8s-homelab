@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+helm repo add jetstack https://charts.jetstack.io
+helm repo update
+helm upgrade --version v1.6.1 --install \
+  cert-manager jetstack/cert-manager \
+  --debug \
+  --namespace cert-manager \
+  --create-namespace \
+  --version v1.6.1 \
+  --wait \
+  --set prometheus.enabled=false \
+  --set installCRDs=true
+echo "Sleeping 60 seconds..."
+sleep 60
+find ${dir}/  -type f -name '*.enc.yaml' ! -name '*.dec.yaml' -exec bash -c 'sops --decrypt "{}" | kubectl apply -f -' \;

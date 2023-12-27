@@ -1,0 +1,32 @@
+#!/bin/bash
+set -e
+if [ ! $# -eq 3 ]
+then
+    echo "ERROR: missing arguments."
+    echo "Expected arguments: user, ip and the workload to install."
+    echo "Actual arguments: ${@}"
+    exit 1
+fi
+user=$1
+manager_ip=$2
+workload=$3
+cwd=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+basename=$(basename ${cwd})
+type=$(find ./* -type d -name ${workload} | awk -F "/" '{print $2}')
+set +e
+if [ $(echo ${type} | wc -w) -ne 1 ] 
+then
+    echo "ERROR: duplicate component '${workload}' found." 
+    exit 1
+fi
+command -v ip &> /dev/null
+ip_cmd_available=$?
+set -e
+if [ ${ip_cmd_available} -eq 0 ]
+then
+    my_ip=$(ip a | grep ${manager_ip} | awk '{print $2}' | sed 's/.\{3\}$//')
+    [ ${my_ip} = ${manager_ip} ] && bash ${cwd}/${type}/${workload}/.install
+else
+    rsync -azvP --delete --exclude '.git' . ${user}@${manager_ip}:~/${basename}
+    ssh ${user}@${manager_ip} "bash ~/${basename}/${type}/${workload}/.install"
+fi

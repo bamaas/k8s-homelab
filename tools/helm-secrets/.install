@@ -1,0 +1,12 @@
+#!/bin/bash
+# Exit script if helm not installed
+command -v helm &> /dev/null || exit 1
+
+# Exit script if helm secrets already installed
+helm plugin list | grep -q secrets && exit 0
+
+apt update -y
+apt install git -y
+helm plugin install https://github.com/jkroepke/helm-secrets --version v4.5.1
+
+helm plugin list | grep -q secrets || exit 1

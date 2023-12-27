@@ -1,0 +1,7 @@
+#!/bin/bash
+set -e
+dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+helm repo add drone-runner-kube https://charts.drone.io
+helm repo update drone-runner-kube
+helm secrets upgrade drone-runner-kube drone/drone-runner-kube --version 0.1.10 --install --wait --namespace drone --create-namespace -f ${dir}/values.yaml -f ${dir}/secret.values.enc.yaml
+find ${dir}/ -type f -name '*.yaml' ! -name 'values.yaml' -exec kubectl apply -f '{}' \;

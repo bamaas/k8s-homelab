@@ -1,0 +1,10 @@
+#!/bin/bash
+command -v sops &> /dev/null && exit 0
+
+apt update -y
+apt install curl -y
+curl -Lo sops.deb "https://github.com/getsops/sops/releases/download/v3.7.1/sops_3.7.1_amd64.deb"
+apt --fix-broken install ./sops.deb
+rm -rf ./sops.deb
+
+command -v sops &> /dev/null || exit 1

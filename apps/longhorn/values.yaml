@@ -1,0 +1,20 @@
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  host: longhorn.kubernetes.lan.basmaas.nl
+  tls: true
+  tlsSecret: longhorn.kubernetes.lan.basmaas.nl
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prd
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: basic-auth
+    nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required '
+
+persistence:
+  defaultClassReplicaCount: 1
+  #recurringJobSelector:
+    #enable: true
+    #jobList: '[{"name":"snap","task":"snapshot","cron":"*/1 * * * *","retain":1},{"name":"backup","task":"backup","cron":"*/2 * * * *","retain":1}]'
+
+defaultSettings:
+  backupTarget: "nfs://nas.lan:/volume7/longhorn"

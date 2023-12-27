@@ -1,0 +1,11 @@
+- name: NFS
+  hosts:
+    - masters
+    - workers
+  become: yes
+  gather_facts: false
+  tasks:
+    - name: Install nfs-common apt package
+      apt:
+        name: nfs-common
+        state: present

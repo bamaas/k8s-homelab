@@ -1,0 +1,7 @@
+#!/bin/bash
+# Exit script if already installed
+command -v k9s &> /dev/null && exit 0
+
+apt install curl
+curl -sS https://webinstall.dev/k9s | bash
+rm -rf ~/Downloads/webi/k9s

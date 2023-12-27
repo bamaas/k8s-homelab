@@ -1,0 +1,21 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: cluster-backup-incl-data
+  namespace: velero
+spec:
+  schedule: 0 4 * * *
+  template:
+    defaultVolumesToRestic: true
+    hooks: {}
+    excludedNamespaces:
+    - 'minio'
+    - 'velero'
+    - 'argocd'
+    - 'longhorn-system'
+    - 'external-dns'
+    - 'cert-manager'
+    - 'nfs-subdir-external-provisioner'
+    metadata: {}
+    ttl: 56h0m0s
+  useOwnerReferencesInBackup: false

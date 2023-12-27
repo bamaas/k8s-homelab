@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    labels:
+        app: alertmanager-gotify-bridge
+    name: alertmanager-gotify-bridge
+    namespace: gotify
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: alertmanager-gotify-bridge
+    strategy: {}
+    template:
+        metadata:
+            labels:
+                app: alertmanager-gotify-bridge
+        spec:
+            containers:
+                - image: druggeri/alertmanager_gotify_bridge:1.0.1
+                  name: alertmanager-gotify-bridge-x58rz
+                  resources: {}
+                  ports:
+                    - containerPort: 8080
+                      name: backendport
+                      protocol: TCP
+                  env:
+                    - name: ENC[AES256_GCM,data:G1AvuOyxyTUSl0PU,iv:/kQjMMHd/9PQ74AWR5z8li4bZ10N21wAlpPf6EJ2jFg=,tag:VWO0R3kGXixiA9UbxAyQzw==,type:str]
+                      value: ENC[AES256_GCM,data:jXRkAf/78gsUWwmjReoo,iv:Gvd7lan8phh694V6huiS7CPa26TzEMiUUslDgk+GuzQ=,tag:pwAuJhfkC9I+yY/iGDru0g==,type:str]
+                    - name: ENC[AES256_GCM,data:2iA1+go0+HvTWhAuil1w,iv:8iTNdA5RzGK/kPPBr9ZKQtNRf/NyK0PlVUko0ewYftU=,tag:9AjmhV9nAqtqTzbJn4VNjw==,type:str]
+                      value: ENC[AES256_GCM,data:p4Q1bDZFCQPeyLMzWtRcNwZGgCvf,iv:aDjD2eqHD1hXXgv4IOIWdQvAkEntG5gkXH7plIv9y+U=,tag:BGcLDKNCLaI2bk25GCsqcA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv:
+        - vault_url: https://sops-3caeb0533c5a473f.vault.azure.net
+          name: sops-key
+          version: b2031a08aea14a50ab6d8e72548eb4f9
+          created_at: "2023-12-16T12:13:01Z"
+          enc: QG-Hxy12anbbv0pM3u0b_OsRyVULf6p0KF5v3JCHOO4B2xNKKAlCdVpSbrNPHbneT1O2gYtBhRH0MfTINWAvXRK-SNfAR7kKssBBMHAdc4nKMy1U-jLW3Vz8Oi_Xo3UPG3yw8ljfDIEHIyoxvbQgc-xq-AzDd2KcVE7u8OErtI0GyfP3iB3NnyBS6IELeAijJ3-UxpzvFHpgfgMxnNNAgkp_vkHbwfhSABEdn1BwsexV057PkIiU29JNXoysJMdiwO3MaEx86SIu6c3ibIfpuma0cGFFLtwHts1UBCFfnBHsS9PbZ7VZAIpPDLW_v5uihtzduVLut3SDPLxgaR5RvQ
+    hc_vault: []
+    age: []
+    lastmodified: "2023-12-16T12:13:02Z"
+    mac: ENC[AES256_GCM,data:8agfXBvhMGS5dxbygO0FWk9zY4svh2ttAOfooBSfcBpyAPM2wiFfBle5YNGb4rlqHVPzqz45af3lrhxmuNmsTjcC8AvDRt4S6aks0p8jthpAW3ICv44OksYvlmWWd3Pt+QuCIddsbCrUhMnxOAUrC5CvlRZ5AEcb+v3etgH2sPU=,iv:bY7AwC3i6gipuHgE/MC+S9ZFHZSoDUZYQ1ibRlj2+FA=,tag:bergJa6G3UFYy270wsr4Xg==,type:str]
+    pgp: []
+    encrypted_regex: ^(env)$
+    version: 3.7.3

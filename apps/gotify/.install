@@ -1,0 +1,10 @@
+#!/bin/bash
+dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+helm repo add k8s-at-home https://k8s-at-home.com/charts/
+helm repo update k8s-at-home
+helm secrets upgrade gotify --install k8s-at-home/gotify --namespace gotify --wait --create-namespace -f ${dir}/values.yaml -f ${dir}/secret.values.enc.yaml
+# alertmanager-gotify-bridge
+# deploy encrypted files
+find ${dir}/alertmanager-gotify-bridge  -type f -name '*.enc.yaml' ! -name '*.dec.yaml' -exec bash -c 'sops --decrypt "{}" | kubectl apply -f -' \;
+# deploy unencrypted files
+find ${dir}/alertmanager-gotify-bridge -type f -name '*.yaml' ! -name 'values.yaml' ! -name '*.enc.yaml' ! -name '*.dec.yaml' -exec kubectl apply -f '{}' \;
