@@ -1,0 +1,46 @@
+prometheus:
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: letsencrypt-prd
+      nginx.ingress.kubernetes.io/whitelist-source-range: 10.42.0.0/0
+    hosts:
+      - prometheus.kubernetes.lan.basmaas.nl
+    paths:
+      - "/"
+    tls:
+      - secretName: prometheus.kubernetes.lan.basmaas.nl
+        hosts:
+          - prometheus.kubernetes.lan.basmaas.nl
+
+alertmanager:
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: letsencrypt-prd
+      nginx.ingress.kubernetes.io/whitelist-source-range: 10.42.0.0/0
+    hosts:
+      - alertmanager.kubernetes.lan.basmaas.nl
+    paths:
+      - "/"
+    tls:
+    - secretName: alertmanager.kubernetes.lan.basmaas.nl
+      hosts:
+        - alertmanager.kubernetes.lan.basmaas.nl
+
+grafana:
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: letsencrypt-prd
+      nginx.ingress.kubernetes.io/whitelist-source-range: 10.42.0.0/0
+    hosts:
+      - grafana.kubernetes.lan.basmaas.nl
+    path: "/"
+    tls:
+      - secretName: grafana.kubernetes.lan.basmaas.nl
+        hosts:
+          - grafana.kubernetes.lan.basmaas.nl
