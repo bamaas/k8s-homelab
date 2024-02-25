@@ -2,5 +2,5 @@
 dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 helm repo add vmware-tanzu https://vmware-tanzu.github.io/helm-charts
 helm repo update vmware-tanzu
-helm upgrade velero --install vmware-tanzu/velero --wait --version 2.27.3 --namespace velero --create-namespace -f ${dir}/values.yaml -f ${dir}/secret.values.enc.yaml
-find ${dir}/ -type f -name '*.yaml' ! -name 'values.yaml' -exec kubectl apply -f '{}' \;
+helm secrets upgrade velero --install vmware-tanzu/velero --wait --version 2.27.3 --namespace velero --create-namespace -f ${dir}/values.yaml -f ${dir}/secret.values.enc.yaml
+find ${dir}/ -type f -name '*.yaml' ! -name 'values.yaml' ! -name 'values.yaml' ! -name '*.enc.yaml' ! -name '*.dec.yaml' -exec kubectl apply -f '{}' \;

@@ -4,5 +4,5 @@ dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 helm repo add rancher http://charts.rancher.io/
 helm repo update rancher
 # helm upgrade rancher-monitoring-crd rancher/rancher-monitoring-crd --version "103.0.3+up45.31.1" --install --wait --namespace cattle-monitoring-system --create-namespace
-helm upgrade rancher-monitoring rancher/rancher-monitoring --version "103.0.3+up45.31.1" --install --wait --namespace cattle-monitoring-system --create-namespace -f ${dir}/values.yaml
+helm secrets upgrade rancher-monitoring rancher/rancher-monitoring --version "103.0.3+up45.31.1" --install --wait --namespace cattle-monitoring-system --create-namespace -f ${dir}/values.yaml
 find ${dir}/ -type f -name '*.yaml' ! -name 'values.yaml' -exec kubectl apply -f '{}' \;

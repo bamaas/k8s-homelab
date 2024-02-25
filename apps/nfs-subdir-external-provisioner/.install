@@ -12,7 +12,7 @@ ansible-playbook -i ${dir}/inventory.dec.yaml ${dir}/install.yaml -u root
 # Chart
 helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
 helm repo update nfs-subdir-external-provisioner
-helm upgrade --version 4.0.2 --namespace nfs-subdir-external-provisioner --wait --create-namespace --install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner -f ${dir}/values.yaml
+helm secrets upgrade --version 4.0.2 --namespace nfs-subdir-external-provisioner --wait --create-namespace --install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner -f ${dir}/values.yaml
 
 # Cleanup
 find ${dir}/  -type f -name '*.enc.yaml.tmp' ! -name '*.enc.yaml$' -exec bash -c 'rm -rf "{}"' \;

@@ -10,7 +10,7 @@ chart_version=1.4.0
 # Install chart
 helm repo add longhorn https://charts.longhorn.io
 helm repo update longhorn
-helm upgrade --install longhorn longhorn/longhorn --wait --version ${chart_version} --namespace ${namespace} --create-namespace -f ${dir}/values.yaml
+helm secrets upgrade --install longhorn longhorn/longhorn --wait --version ${chart_version} --namespace ${namespace} --create-namespace -f ${dir}/values.yaml
 # Create basic auth secret
 /bin/bash ${dir}/create-basic-auth-secret.sh ${ui_username} ${ui_password} ${dir}/basic-auth.yaml
 kubectl -n ${namespace} apply -f ${dir}/basic-auth.yaml
