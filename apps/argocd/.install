@@ -3,4 +3,4 @@ set -e
 dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 helm repo add argo https://argoproj.github.io/argo-helm
 helm repo update argo
-helm secrets upgrade --version 5.43.8 --install argocd argo/argo-cd --wait --namespace argocd --create-namespace -f ${dir}/values.yaml -f ${dir}/secret.values.enc.yaml
+helm secrets upgrade --version 5.43.8 --install argocd argo/argo-cd --wait --debug --namespace argocd --create-namespace -f ${dir}/values.yaml -f ${dir}/secret.values.enc.yaml

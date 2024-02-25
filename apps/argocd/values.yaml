@@ -2,6 +2,9 @@ dex:
   enabled: false
 
 configs:
+  params:
+    application.namespaces: argocd, home-automation
+    
   cm:
     create: true
     helm.valuesFileSchemes: >-
