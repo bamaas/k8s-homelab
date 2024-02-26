@@ -15,14 +15,10 @@ prometheus:
           - prometheus.kubernetes.lan.basmaas.nl
 
 alertmanager:
-  route:
-    receiver: gotify_alertmanager_bridge
-
-  receivers:
-    - name: gotify_alertmanager_bridge
-      webhook_configs:
-        - url: "http://alertmanager-gotify-bridge.gotify.svc.cluster.local:8080"
-          send_resolved: true
+  alertmanagerSpec:
+    replicas: 2
+    alertmanagerConfiguration:
+      name: alertmanager-config-override
 
   ingress:
     enabled: true

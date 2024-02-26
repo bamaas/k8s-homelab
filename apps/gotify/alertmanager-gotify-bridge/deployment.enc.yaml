@@ -1,34 +1,34 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: ENC[AES256_GCM,data:OFP6bJJ01Q==,iv:47xNZDHOIQLD4RVngnaS0fxRhK6A+sqX8HsEeqId8no=,tag:lO4dFWxGctfTyR5tKIv0ow==,type:str]
+kind: ENC[AES256_GCM,data:avQeXIUwH53R6Q==,iv:Ak8vyiCEqwSgDHCxbAWCNkiJETSbbtN6IfDbAJ1qYCk=,tag:O/NiieXEdmlV2H4toWEWYA==,type:str]
 metadata:
     labels:
-        app: alertmanager-gotify-bridge
-    name: alertmanager-gotify-bridge
-    namespace: gotify
+        app: ENC[AES256_GCM,data:MywKtm8ybNOjAvs7OCFO1t3pktGq8zmWyyY=,iv:IjWvP1UcIJFtKbyf+G8NTRcZIerfaqwzpBVKZdg0Uo8=,tag:J0fTGBAoVnaFNi19/Uakdg==,type:str]
+    name: ENC[AES256_GCM,data:GIPVpEi+cup9eX+sooWqKpnOw6j1ulas/j8=,iv:AHhbvPNMPo4AFe5bgAxya6Wid+fiO9O5k+xNNONFdeA=,tag:N4AdorH+M0aNmfGJf64YEg==,type:str]
+    namespace: ENC[AES256_GCM,data:dY3aOGm9,iv:kpHWRqnbBwWBvk/Qj+Lpv9yOUmz+T0YmeUnTXCYkriQ=,tag:TgX/DUHhx9BU2ybhZJ6mRg==,type:str]
 spec:
-    replicas: 1
+    replicas: ENC[AES256_GCM,data:bA==,iv:CQbsIu1AORebHuc0VFkp35Ocrd51fD/v1NzRkV6a2qA=,tag:z8NfB6wuERG9/xu537rMqA==,type:int]
     selector:
         matchLabels:
-            app: alertmanager-gotify-bridge
+            app: ENC[AES256_GCM,data:paUPUR0mAIurU3ZHyV61hoJ0KT/KvyPeSr0=,iv:AKY5nQuG3XKUZNOCKa5rCDNs4efRMNt1ToJBU3SRoYo=,tag:Ct9tYl2LvCUQ5L8BtQ6NLg==,type:str]
     strategy: {}
     template:
         metadata:
             labels:
-                app: alertmanager-gotify-bridge
+                app: ENC[AES256_GCM,data:qjrAjQ4s0bnnHBr7A/mjNkWTgX+AJqtXZr0=,iv:Roe3fa1TTom+YwORrYi2ANgOy6zxTlAfra21H0SDaYo=,tag:6aYDy2HrwZ0tPCuZcdZOQg==,type:str]
         spec:
             containers:
-                - image: druggeri/alertmanager_gotify_bridge:1.0.1
-                  name: alertmanager-gotify-bridge-x58rz
+                - image: ENC[AES256_GCM,data:sxwjsmOzkatRI/AH/N0kArksMlS/syu2oCGskhMYcKbp1HLB1l5dZ6Y=,iv:f92OQhNlTPW5qTmAfTV6cCiTvqujrouo6VwJltq2jeg=,tag:Rqveq9YWZyDKJfOQKLngLQ==,type:str]
+                  name: ENC[AES256_GCM,data:QFQZn77OhO9FWlYYfM/Kx2PHwnImrC+cFSwELSO6iMY=,iv:z44NS1lT1N+wer3mNprg6fNi7751awRcUQONlTb4YIk=,tag:hO6cLjJ5KlYCdgnn1bxdZQ==,type:str]
                   resources: {}
                   ports:
-                    - containerPort: 8080
-                      name: backendport
-                      protocol: TCP
+                    - containerPort: ENC[AES256_GCM,data:jywGRA==,iv:/0Ex1ZHqB16RJR/3Mkjbu9GThKdacy0olAfnWIazGto=,tag:DSWrD3oVF3SdY/1vWQzr+g==,type:int]
+                      name: ENC[AES256_GCM,data:w8ADq8RDZf1OVRM=,iv:pAAM7T2V3aotD3qLwtCOROHtCDoa2mwG76bC32+Jfzk=,tag:zHuWgH+EnEWChCYGhcN87A==,type:str]
+                      protocol: ENC[AES256_GCM,data:AUlG,iv:eAfTZt8KKnw0gGEeIVcZn95ioKw5aD432dBzzwvozgY=,tag:db1Bqvyk1XqqRY52AQ1cAg==,type:str]
                   env:
-                    - name: ENC[AES256_GCM,data:G1AvuOyxyTUSl0PU,iv:/kQjMMHd/9PQ74AWR5z8li4bZ10N21wAlpPf6EJ2jFg=,tag:VWO0R3kGXixiA9UbxAyQzw==,type:str]
-                      value: ENC[AES256_GCM,data:jXRkAf/78gsUWwmjReoo,iv:Gvd7lan8phh694V6huiS7CPa26TzEMiUUslDgk+GuzQ=,tag:pwAuJhfkC9I+yY/iGDru0g==,type:str]
-                    - name: ENC[AES256_GCM,data:2iA1+go0+HvTWhAuil1w,iv:8iTNdA5RzGK/kPPBr9ZKQtNRf/NyK0PlVUko0ewYftU=,tag:9AjmhV9nAqtqTzbJn4VNjw==,type:str]
-                      value: ENC[AES256_GCM,data:p4Q1bDZFCQPeyLMzWtRcNwZGgCvf,iv:aDjD2eqHD1hXXgv4IOIWdQvAkEntG5gkXH7plIv9y+U=,tag:BGcLDKNCLaI2bk25GCsqcA==,type:str]
+                    - name: ENC[AES256_GCM,data:K4NOh4RyiwJADWlH,iv:j6nH0uET4l29OQLBzCZyT4LKWjrAq4by7YHEw0snMlI=,tag:o0fNS5cJMSD1UrdfkSI5aA==,type:str]
+                      value: ENC[AES256_GCM,data:EZePhEX/2/kYJxxOePij,iv:IUapwZDtl2CRjjhAubN9QWrF+Yzj7h/FDuz2Et+xjHI=,tag:EsbIxaM0YixaqnGPoDWCqw==,type:str]
+                    - name: ENC[AES256_GCM,data:T/HMbO4/AxHfE9SWYk8Q,iv:5yNfcc1IqH9/n2zYn0PdDDaCH8/esNamoDW74KPbewc=,tag:qCC1egwZljSakn5WNaDNig==,type:str]
+                      value: ENC[AES256_GCM,data:S5shaMe63RZdQG3MyMKsjf9MaDpW,iv:kLb+hp0vbcFMrOceTty1y9DlQZBCgkjxC9yrskwTrso=,tag:GXsuUglz834Gx/pqSbSBkA==,type:str]
 sops:
     kms: []
     gcp_kms: []
@@ -36,12 +36,12 @@ sops:
         - vault_url: https://sops-3caeb0533c5a473f.vault.azure.net
           name: sops-key
           version: b2031a08aea14a50ab6d8e72548eb4f9
-          created_at: "2023-12-16T12:13:01Z"
-          enc: QG-Hxy12anbbv0pM3u0b_OsRyVULf6p0KF5v3JCHOO4B2xNKKAlCdVpSbrNPHbneT1O2gYtBhRH0MfTINWAvXRK-SNfAR7kKssBBMHAdc4nKMy1U-jLW3Vz8Oi_Xo3UPG3yw8ljfDIEHIyoxvbQgc-xq-AzDd2KcVE7u8OErtI0GyfP3iB3NnyBS6IELeAijJ3-UxpzvFHpgfgMxnNNAgkp_vkHbwfhSABEdn1BwsexV057PkIiU29JNXoysJMdiwO3MaEx86SIu6c3ibIfpuma0cGFFLtwHts1UBCFfnBHsS9PbZ7VZAIpPDLW_v5uihtzduVLut3SDPLxgaR5RvQ
+          created_at: "2024-02-26T16:45:38Z"
+          enc: JZrTlwjOyNxWvez18MP_0bkFp9uvWilveee4wO7wlznqjzWPrEYsW4E5seKf9fZyBhSezQIGCmFzu1IuNYusYWBoR_NKZjPeNv06wvzgfHsYZPoDRf3XoYg2fbKeieIoDsTz4JbwEuBC_StZh2raib5CCLS8WpQNh36h_dPpcQN71QAjOuy45dbol1MUyvvlhLEagvPlZxxUGsIJ_xQCLie_M9GraVqkMkx00Lepg5MbTPcQCOptztsUUcQlXFwh0nSjBdFpHPe3b_xIxyCX_HNMcTImozpNvnZEe6-gieyZZaCQ4l_IYze6kocZxhJvSu1xoW1Enk2-FUP0iz052g
     hc_vault: []
     age: []
-    lastmodified: "2023-12-16T12:13:02Z"
-    mac: ENC[AES256_GCM,data:8agfXBvhMGS5dxbygO0FWk9zY4svh2ttAOfooBSfcBpyAPM2wiFfBle5YNGb4rlqHVPzqz45af3lrhxmuNmsTjcC8AvDRt4S6aks0p8jthpAW3ICv44OksYvlmWWd3Pt+QuCIddsbCrUhMnxOAUrC5CvlRZ5AEcb+v3etgH2sPU=,iv:bY7AwC3i6gipuHgE/MC+S9ZFHZSoDUZYQ1ibRlj2+FA=,tag:bergJa6G3UFYy270wsr4Xg==,type:str]
+    lastmodified: "2024-02-26T16:45:39Z"
+    mac: ENC[AES256_GCM,data:jeJgnT0vMWnK17z0FLCpuNljVpXU5w/PV56q7GMazI5NaSH6wT+968ZvLyVxOUgR7Lj8G2Y0WeYvUNHfDY6zHqOr2lrtukKSoh6j+JafeG+9x27zvWXbhTuLTviQbDJeyCpzW/VgN/XOcRM3gwJlsmTUsgu05LPx4fNrbI98sJE=,iv:rUzeXYJRI4b+5uKvXsNhu876pyjlFXwmBLp0rHzci5w=,tag:gF/OQIAtqH9dLmIkQY0bow==,type:str]
     pgp: []
-    encrypted_regex: ^(env)$
+    unencrypted_suffix: _unencrypted
     version: 3.7.3
