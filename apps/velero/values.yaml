@@ -1,5 +1,7 @@
 metrics:
-  enabled: false
+  enabled: true
+  serviceMonitor:
+    enabled: true
 
 configuration:
   provider: aws
