@@ -17,5 +17,5 @@ spec:
     - 'cert-manager'
     - 'nfs-subdir-external-provisioner'
     metadata: {}
-    ttl: 56h0mM0s
+    ttl: 56h0m0s
   useOwnerReferencesInBackup: false
