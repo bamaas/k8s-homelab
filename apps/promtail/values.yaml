@@ -4,6 +4,8 @@ config:
 
 serviceMonitor:
   enabled: true
+
+  # TODO: below rules are not valid
   # prometheusRule:
   #   enabled: true
   #   rules:
