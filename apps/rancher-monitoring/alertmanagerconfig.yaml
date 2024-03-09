@@ -10,12 +10,13 @@ spec:
     groupInterval: 5m
     repeatInterval: 12h
     receiver: gotify_alertmanager_bridge
-    # routes:
-    # - match:
-    #     alertname: Watchdog
-    #   receiver: 'null'
+    routes:
+      - matchers:
+        - name: severity
+          value: none
+        receiver: 'null'
   receivers:
-    # - name: "null"
+    - name: "null"
     - name: gotify_alertmanager_bridge
       webhookConfigs:
         - sendResolved: true
