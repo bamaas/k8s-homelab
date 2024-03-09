@@ -1,0 +1,7 @@
+#!/bin/bash
+set -e
+dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update grafana
+helm secrets upgrade loki grafana/loki --version "5.43.6" --install --wait --namespace loki --create-namespace -f ${dir}/values.yaml
+find ${dir}/ -type f -name '*.yaml' ! -name 'values.yaml' -exec kubectl apply -f '{}' \;

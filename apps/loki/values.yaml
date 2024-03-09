@@ -1,0 +1,18 @@
+global:
+   dnsService: "rke2-coredns-rke2-coredns"
+   
+loki:
+  commonConfig:
+    replication_factor: 1
+  storage:
+    type: 'filesystem'
+singleBinary:
+  replicas: 1
+
+write:
+  persistence:
+    size: 8Gi
+
+memberlist:
+  service:
+    publishNotReadyAddresses: true

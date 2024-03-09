@@ -1,0 +1,1 @@
+https://grafana.com/docs/loki/latest/setup/install/helm/install-monolithic/
