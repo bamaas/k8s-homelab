@@ -46,6 +46,9 @@ install_ephemeral_apps:															## Install all ephemeral applications
 	${INSTALL} minio
 	${INSTALL} velero
 	${INSTALL} longhorn
+	${INSTALL} promtail
+	${INSTALL} loki
+	${INSTALL} rancher-monitoring
 	${INSTALL} drone-runner-kube
 
 install_stateful_apps:															## Install stateful applications
@@ -79,3 +82,6 @@ disaster_recovery: install_foundation install_tools	install_ephemeral_apps		## F
 # ${RESTORE} argocd is not included in the with data backup. use the without data one.
 
 clean_install: install_foundation install_tools	install_apps					## Full installation from scratch
+
+sops_encrypt:																	## Sops encrypt file
+	sops --encrypt ${DEC_FILE} > `echo ${DEC_FILE} | sed 's/.dec./.enc./'`

@@ -45,6 +45,15 @@ alertmanager:
         - alertmanager.kubernetes.lan.basmaas.nl
 
 grafana:
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      access: proxy
+      url: http://loki-gateway.loki.svc.cluster.local
+      jsonData:
+        timeout: 60
+        maxLines: 1000
+
   ingress:
     enabled: true
     annotations:
