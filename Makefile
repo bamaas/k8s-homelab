@@ -22,6 +22,7 @@ install:																		## Install any component
 install_foundation:																## Install foundation
 	${INSTALL} host-dns
 	${INSTALL} rke2
+	${INSTALL} multipath
 
 install_tool:																	## Install a single tool
 	${INSTALL} ${TOOL}

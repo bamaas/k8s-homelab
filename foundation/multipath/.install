@@ -6,7 +6,6 @@ command -v pip &> /dev/null || apt install python3-pip -y
 command -v ansible &> /dev/null || pip install ansible
 
 # Install
-find ${dir}/  -type f -name '*.enc.yaml' ! -name '*.enc.yaml.tmp' -exec bash -c 'sops --decrypt "{}" > "{}.tmp"' \;
 find ${dir}/../../* -type f -name 'inventory.enc.yaml' -exec bash -c "sops --decrypt "{}" > ${dir}/inventory.dec.yaml" \;
 ansible-playbook -i ${dir}/inventory.dec.yaml ${dir}/install.yaml -u root
 
