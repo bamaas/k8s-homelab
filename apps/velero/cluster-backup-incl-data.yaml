@@ -16,6 +16,8 @@ spec:
     - 'external-dns'
     - 'cert-manager'
     - 'nfs-subdir-external-provisioner'
+    - 'loki'
+    - 'cattle-monitoring-system'
     metadata: {}
     ttl: 56h0m0s
   useOwnerReferencesInBackup: false
