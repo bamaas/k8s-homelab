@@ -1,0 +1,10 @@
+config:
+  loglevel: debug
+  argocd:
+    grpcWeb: false
+    serverAddress: "http://argocd-server.argocd.svc.cluster.local"
+    insecure: true
+    plaintext: true
+
+metrics:  
+  enabled: true
