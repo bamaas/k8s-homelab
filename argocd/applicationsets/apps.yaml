@@ -4,15 +4,17 @@ kind: ApplicationSet
 metadata:
   name: devex-apps
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
-  - git:
-      repoURL: https://github.com/bamaas/k8s-homelab.git
-      revision: test
-      directories:
-        - path: envs/dev/apps/*
+    - git:
+        repoURL: https://github.com/bamaas/k8s-homelab.git
+        revision: test
+        directories:
+          - path: envs/dev/apps/*
   template:
     metadata:
       name: 'devex-{{index .path.segments 1}}-{{.path.basename}}'

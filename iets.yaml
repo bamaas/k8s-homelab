@@ -1,0 +1,80 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+  name: devex-apps
+  namespace: argocd
+spec:
+  generators:
+  - git:
+      directories:
+      - path: envs/dev/apps/*
+      repoURL: https://github.com/bamaas/k8s-homelab.git
+      revision: test
+  goTemplate: true
+  goTemplateOptions:
+  - missingkey=error
+  template:
+    metadata:
+      finalizers:
+      - resources-finalizer.argocd.argoproj.io
+      labels:
+        app: '{{.path.basename}}'
+        environment: '{{index .path.segments 1}}'
+      name: devex-{{index .path.segments 1}}-{{.path.basename}}
+    spec:
+      destination:
+        server: https://kubernetes.default.svc
+      project: default
+      source:
+        path: '{{.path.path}}'
+        repoURL: https://github.com/bamaas/k8s-homelab.git
+        targetRevision: test
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=false
+        - ServerSideApply=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+  name: devex-namespace-utils
+  namespace: argocd
+spec:
+  generators:
+  - git:
+      directories:
+      - path: envs/dev/namespaces/*
+      repoURL: https://github.com/bamaas/k8s-homelab.git
+      revision: test
+  goTemplate: true
+  goTemplateOptions:
+  - missingkey=error
+  template:
+    metadata:
+      finalizers:
+      - resources-finalizer.argocd.argoproj.io
+      labels:
+        environment: '{{index .path.segments 1}}'
+      name: devex-dev-ns-{{.path.basename}}
+    spec:
+      destination:
+        server: https://kubernetes.default.svc
+      project: default
+      source:
+        path: '{{.path.path}}'
+        repoURL: https://github.com/bamaas/k8s-homelab.git
+        targetRevision: test
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=false
+        - ServerSideApply=true

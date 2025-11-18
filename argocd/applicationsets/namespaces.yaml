@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: devex-namespace-utils
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - git:
+        repoURL: https://github.com/bamaas/k8s-homelab.git
+        revision: test
+        directories:
+          - path: envs/dev/namespaces/*
+  template:
+    metadata:
+      name: 'devex-dev-ns-{{.path.basename}}'
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
+      labels:
+        environment: '{{index .path.segments 1}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/bamaas/k8s-homelab.git
+        targetRevision: test
+        path: '{{.path.path}}'
+      destination:
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=false
+          - ServerSideApply=true
