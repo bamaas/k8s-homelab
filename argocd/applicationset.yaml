@@ -15,18 +15,18 @@ spec:
         - path: envs/dev/apps/*
   template:
     metadata:
-      name: 'devex-{{path[1]}}-{{path.basename}}'
+      name: 'devex-{{index .path.segments 1}}-{{.path.basename}}'
       finalizers:
         - resources-finalizer.argocd.argoproj.io
       labels:
-        environment: '{{path[1]}}'
-        app: '{{path.basename}}'
+        environment: '{{index .path.segments 1}}'
+        app: '{{.path.basename}}'
     spec:
       project: default
       source:
         repoURL: https://github.com/bamaas/k8s-homelab.git
         targetRevision: test
-        path: '{{path}}'
+        path: '{{.path.path}}'
       destination:
         server: https://kubernetes.default.svc
       syncPolicy:
