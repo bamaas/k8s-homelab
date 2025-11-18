@@ -1,13 +1,44 @@
 ---
 apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: argocd-system
+  namespace: argocd
+spec:
+  description: ArgoCD system management - ApplicationSets, Projects, and bootstrap applications
+  sourceRepos:
+    - 'https://github.com/bamaas/k8s-homelab.git'
+  destinations:
+    # Only allow deployment to argocd namespace
+    - namespace: argocd
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    # Only ArgoCD resources
+    - group: 'argoproj.io'
+      kind: '*'
+  namespaceResourceWhitelist:
+    # Only ArgoCD resources in argocd namespace
+    - group: 'argoproj.io'
+      kind: '*'
+  roles:
+    - name: argocd-admin
+      description: Full access to ArgoCD system resources
+      policies:
+        - p, proj:argocd-system:argocd-admin, applications, *, argocd-system/*, allow
+        - p, proj:argocd-system:argocd-admin, applicationsets, *, argocd-system/*, allow
+      groups:
+        - platform-team
+        - argocd-admins
+---
+apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: devex-root
+  name: root
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: default
+  project: argocd-system
   source:
     repoURL: https://github.com/bamaas/k8s-homelab.git
     targetRevision: test

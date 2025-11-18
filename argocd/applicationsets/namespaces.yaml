@@ -22,7 +22,7 @@ spec:
       labels:
         environment: '{{index .path.segments 1}}'
     spec:
-      project: default
+      project: platform
       source:
         repoURL: https://github.com/bamaas/k8s-homelab.git
         targetRevision: test
