@@ -1,4 +1,5 @@
 ---
 resources:
-  - ../projects/
-  - ../applicationsets/
+  - argocd-cm.yaml
+  - argocd-system-project.yaml
+  - root-application.yaml
