@@ -9,7 +9,7 @@ patches:
         path: /spec/hard/requests.cpu
         value: "2"
       - op: replace
-        path: /spec/hard/requests.memoryFF
+        path: /spec/hard/requests.memory
         value: 4Gi
       - op: replace
         path: /spec/hard/limits.cpu
