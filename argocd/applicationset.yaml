@@ -1,0 +1,36 @@
+# argocd/applicationsets/apps-appset.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: devex-apps
+  namespace: argocd
+spec:
+  generators:
+  - git:
+      repoURL: https://your-git-repo-url.git
+      revision: HEAD
+      directories:
+      - path: envs/*/apps/*
+  template:
+    metadata:
+      name: 'devex-{{path[1]}}-{{path.basename}}'
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
+      labels:
+        environment: '{{path[1]}}'
+        app: '{{path.basename}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://your-git-repo-url.git
+        targetRevision: HEAD
+        path: '{{path}}'
+      destination:
+        server: https://kubernetes.default.svc
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=false
+          - RespectIgnoreDifferences=true

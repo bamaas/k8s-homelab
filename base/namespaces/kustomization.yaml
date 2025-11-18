@@ -1,0 +1,7 @@
+---
+
+# Base namespace bound resources
+
+resources:
+  - bar/
+  - foo/

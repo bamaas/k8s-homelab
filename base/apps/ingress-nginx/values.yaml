@@ -1,0 +1,12 @@
+---
+controller:
+  hostNetwork: true
+
+  service:
+    enabled: true
+    type: LoadBalancer
+
+  metrics:
+    enabled: false
+    serviceMonitor:
+      enabled: false

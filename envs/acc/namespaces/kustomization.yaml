@@ -1,0 +1,7 @@
+---
+
+# Acceptance namespace bound resources
+
+resources:
+  - acc-foo/
+  - acc-bar/

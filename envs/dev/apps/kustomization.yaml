@@ -1,0 +1,7 @@
+---
+
+# Development applications
+
+resources:
+  - ingress-nginx/
+  - victoria-logs/

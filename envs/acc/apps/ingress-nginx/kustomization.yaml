@@ -1,0 +1,5 @@
+---
+resources:
+  - ../../../../base/apps/ingress-nginx
+
+namespace: acc-foo

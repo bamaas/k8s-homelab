@@ -1,0 +1,21 @@
+# General
+.ignore/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo 
+
+# Helm
+**/charts/**
+
+ARCHITECTURE-*
+opmerkingen
+order.txt
+PRESENTATION*
+.specstory/*

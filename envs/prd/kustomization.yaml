@@ -1,0 +1,48 @@
+---
+
+# Production environment
+
+resources:
+  - ../../base
+
+patches:
+
+  # ----- Namespace overrides -----
+
+  # Set namespace to "prd-foo" for all resources with namespace "foo"
+  - target:
+      namespace: foo
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: prd-foo
+
+  # Set namespace to "prd-bar" for all resources with namespace "bar"
+  - target:
+      namespace: bar
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: prd-bar
+
+  # ----- Application overrides -----
+
+  # Victoria logs ingress host and tls
+  - target:
+      kind: Ingress
+      name: .*
+    patch: |-
+      - op: add
+        path: /spec/rules/0/host
+        value: logs.kubernetes.lan.basmaas.nl
+
+      - op: add
+        path: /spec/tls
+        value:
+          - hosts:
+              - logs.dev.kubernetes.lan.basmaas.nl
+            secretName: logs.kubernetes.lan.basmaas.nl
+
+      - op: add
+        path: "/metadata/annotations/cert-manager.io~1cluster-issuer"
+        value: letsencrypt-prd

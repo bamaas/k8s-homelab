@@ -1,0 +1,24 @@
+---
+
+resources:
+  - ../../../../base/namespaces/foo
+
+patches:
+  - patch: |
+      - op: replace
+        path: /spec/hard/requests.cpu
+        value: "2"
+      - op: replace
+        path: /spec/hard/requests.memoryFF
+        value: 4Gi
+      - op: replace
+        path: /spec/hard/limits.cpu
+        value: "4"
+      - op: replace
+        path: /spec/hard/limits.memory
+        value: 8Gi
+    target:
+      kind: ResourceQuota
+      name: quota
+
+namespace: dev-foo

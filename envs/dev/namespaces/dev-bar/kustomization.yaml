@@ -1,0 +1,24 @@
+---
+
+resources:
+  - ../../../../base/namespaces/bar
+
+patches:
+  - patch: |
+      - op: replace
+        path: /spec/hard/requests.cpu
+        value: "1"
+      - op: replace
+        path: /spec/hard/requests.memory
+        value: 2Gi
+      - op: replace
+        path: /spec/hard/limits.cpu
+        value: "2"
+      - op: replace
+        path: /spec/hard/limits.memory
+        value: 4Gi
+    target:
+      kind: ResourceQuota
+      name: quota
+
+namespace: dev-bar

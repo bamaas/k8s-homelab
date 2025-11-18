@@ -1,0 +1,7 @@
+---
+
+# Base applications
+
+resources:
+  - ingress-nginx/
+  - victoria-logs/

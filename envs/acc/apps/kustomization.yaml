@@ -1,0 +1,7 @@
+---
+
+# Acceptance applications
+
+resources:
+  - victoria-logs/
+  - ingress-nginx/
