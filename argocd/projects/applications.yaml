@@ -7,10 +7,10 @@ metadata:
 spec:
   description: Application deployments across all environments
   sourceRepos:
-    - 'https://github.com/bamaas/k8s-homelab.git'
+    - '*'
   destinations:
     - namespace: '*'
-      server: https://kubernetes.default.svc
+      server: '*'
   clusterResourceWhitelist: []
   namespaceResourceWhitelist:
     - group: '*'
