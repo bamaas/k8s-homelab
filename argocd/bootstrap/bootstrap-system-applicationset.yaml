@@ -2,10 +2,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: applications
+  name: bootstrap-system
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "0"
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
@@ -14,27 +12,26 @@ spec:
         repoURL: https://github.com/bamaas/k8s-homelab.git
         revision: test
         directories:
-          - path: envs/dev/apps/*
+          - path: 'argocd/*'
+          - path: 'argocd/bootstrap'
+            exclude: true
   template:
     metadata:
-      name: 'devex-{{index .path.segments 1}}-{{.path.basename}}'
-      finalizers:
-        - resources-finalizer.argocd.argoproj.io
-      labels:
-        environment: '{{index .path.segments 1}}'
-        app: '{{.path.basename}}'
+      name: 'argocd-{{ .path.basename }}'
     spec:
-      project: applications
-      source:
-        repoURL: https://github.com/bamaas/k8s-homelab.git
-        targetRevision: test
-        path: '{{.path.path}}'
+      project: argocd-system
+      sources:
+        - repoURL: https://github.com/bamaas/k8s-homelab.git
+          targetRevision: test
+          path: '{{.path.path}}'
       destination:
         server: https://kubernetes.default.svc
+        namespace: argocd
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
+          allowEmpty: true
         syncOptions:
           - CreateNamespace=false
           - ServerSideApply=true

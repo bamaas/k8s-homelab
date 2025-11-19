@@ -2,4 +2,4 @@
 resources:
   - argocd-cm.yaml
   - argocd-system-project.yaml
-  - root-application.yaml
+  - bootstrap-system-applicationset.yaml
