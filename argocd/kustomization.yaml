@@ -1,5 +1,0 @@
----
-resources:
-  # Dont include bootstrap in the root application
-  - projects/
-  - applicationsets/

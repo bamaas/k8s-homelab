@@ -14,12 +14,10 @@ spec:
         repoURL: https://github.com/bamaas/k8s-homelab.git
         revision: test
         directories:
-          - path: envs/dev/apps/*
+          - path: base/apps/*
   template:
     metadata:
       name: 'devex-{{index .path.segments 1}}-{{.path.basename}}'
-      finalizers:
-        - resources-finalizer.argocd.argoproj.io
       labels:
         environment: '{{index .path.segments 1}}'
         app: '{{.path.basename}}'

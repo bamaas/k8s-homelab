@@ -1,0 +1,23 @@
+---
+resources:
+  - ../../../../base/argocd/applicationsets/
+
+patches:
+
+  # Patch namespaces ApplicationSet to point to dev paths
+  - target:
+      kind: ApplicationSet
+      name: 'namespaces'
+    patch: |-
+      - op: replace
+        path: /spec/generators/0/git/directories/0/path
+        value: envs/dev/namespaces/*
+
+  # Patch applications ApplicationSet to point to dev paths
+  - target:
+      kind: ApplicationSet
+      name: 'applications'
+    patch: |-
+      - op: replace
+        path: /spec/generators/0/git/directories/0/path
+        value: envs/dev/apps/*

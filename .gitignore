@@ -19,3 +19,7 @@ opmerkingen
 order.txt
 PRESENTATION*
 .specstory/*
+portforward.sh
+rsync.sh
+iets.yaml
+.archive/*
