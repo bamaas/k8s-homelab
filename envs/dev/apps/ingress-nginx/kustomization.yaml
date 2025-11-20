@@ -3,4 +3,3 @@ generators:
   - helm-chart.yaml
 
 namespace: dev-foo
-

@@ -21,6 +21,8 @@ spec:
       labels:
         environment: '{{index .path.segments 1}}'
         app: '{{.path.basename}}'
+      annotations:
+        argocd.argoproj.io/sync-wave: "-1"
     spec:
       project: applications
       source:

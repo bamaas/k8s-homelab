@@ -20,6 +20,8 @@ spec:
       name: 'devex-dev-ns-{{.path.basename}}'
       labels:
         environment: '{{index .path.segments 1}}'
+      annotations:
+        argocd.argoproj.io/sync-wave: "-1"
     spec:
       project: platform
       source:
